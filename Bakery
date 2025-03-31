@@ -1,0 +1,33 @@
+# data = https://github.com/reisanar/datasets/blob/master/BreadBasket.csv
+SELECT * FROM `Bakery Transactions`.breadbasket;
+SET SQL_SAFE_UPDATES = 0;
+ALTER TABLE `Bakery Transactions`.breadbasket RENAME COLUMN Transaction to Receipt_No;
+SELECT * FROM `Bakery Transactions`.breadbasket;
+ALTER TABLE `Bakery Transactions`.breadbasket ADD Hour Int;
+UPDATE `Bakery Transactions`.breadbasket SET Hour = EXTRACT(Hour from Time);
+ALTER TABLE `Bakery Transactions`.breadbasket MODIFY Hour Int AFTER Time;
+SELECT * FROM `Bakery Transactions`.breadbasket;
+SELECT Item FROM `Bakery Transactions`.breadbasket GROUP BY Item;
+ALTER TABLE `Bakery Transactions`.breadbasket ADD Categories Text(255);
+SELECT * FROM `Bakery Transactions`.breadbasket;
+UPDATE `Bakery Transactions`.breadbasket SET Categories =
+CASE
+WHEN Item IN ("Bread", "Scandinavian", "Muffin",  "Tartine", "Farm House", "Frittata", "Hearty & Seasonal", "Focaccia", "Toast", "Scone", "Baguette", "Half slice Monster")
+THEN "Bread & Bakery"
+WHEN Item IN ("Hot chocolate",  "Coffee", "Tea", "Mineral water", "Juice", "Ella's Kitchen Pouches", "Smoothies", "Coke", "My-5 Fruit Shoot", "Coffee granules")
+THEN "Beverages"
+WHEN Item IN ("Jam",  "Cookies",  "Pastry",  "Medialuna", "Fudge", "Victorian Sponge", "Cake", "Alfajores", "Brownie", "Dulce de Leche", "Granola", "Bread Pudding", "Truffles", 
+"Kids biscuit", "Caramel bites", "Jammie Dodgers", "Tiffin", "Olum & polenta", "Polenta", "Bakewell", "Lemon and coconut", "Crepes", "Vegan mincepie", "Bare Popcorn", "Crisps", 
+"Pintxos", "Panatone", "Raspberry shortbread sandwich", "Chocolates", "Drinking chocolate spoons", "Cherry me Dried fruit")
+THEN "Sweets & Snacks"
+WHEN Item IN ("Soup", "Pick and Mix Bowls", "Chicken sand", "Mighty Protein", "Chicken sand", "Sandwich", "Eggs", "The BART", "Empanadas", "Bowl Nic Pitt", "Bacon", "The Nomad", 
+"Muesli", "Brioche and salami", "Salad", "Chicken Stew", "Spanish Brunch", "Extra Salami or Feta", "Vegan Feast", "Christmas common", "Argentina Night", "Tacos/Fajita")
+THEN "Meals & Sides"
+WHEN Item IN ("Chimichurri Oil", "Spread", "Gingerbread syrup", "Honey")
+THEN "Condiments"
+WHEN Item IN ("Duck egg", "Raw bars")
+THEN "Protein"
+WHEN Item IN ("#Fairy Doors",  "Keeping It Local",  "#Art Tray #Afternoon with the baker",  "Valentine's card",  "Tshirt",  "Postcard",  "Nomad bag",  "Gift voucher",  "Mortimer")
+THEN "Gift/Artisan"
+ELSE "Other" END;
+SELECT * FROM `Bakery Transactions`.breadbasket;
