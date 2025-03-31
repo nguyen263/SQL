@@ -27,7 +27,7 @@ WHEN Item IN ("Chimichurri Oil", "Spread", "Gingerbread syrup", "Honey")
 THEN "Condiments"
 WHEN Item IN ("Duck egg", "Raw bars")
 THEN "Protein"
-WHEN Item IN ("#Fairy Doors",  "Keeping It Local",  "#Art Tray #Afternoon with the baker",  "Valentine's card",  "Tshirt",  "Postcard",  "Nomad bag",  "Gift voucher",  "Mortimer")
+WHEN Item IN ("Fairy Doors",  "Keeping It Local",  "Art Tray", "Afternoon with the baker",  "Valentine's card",  "Tshirt",  "Postcard",  "Nomad bag",  "Gift voucher",  "Mortimer")
 THEN "Gift/Artisan"
 ELSE "Other" END;
 SELECT * FROM `Bakery Transactions`.breadbasket;
